@@ -1,10 +1,19 @@
 import React from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+
+import Navbar from "./layout/Navbar";
+import Dashboard from './dashboard/Dashboard';
 
 function App() {
   return (
-    <div>
-      Start
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <Navbar />
+        <Switch>
+          <Route path="/" component={Dashboard} />
+        </Switch>
+      </div>
+    </BrowserRouter>
   );
 }
 
