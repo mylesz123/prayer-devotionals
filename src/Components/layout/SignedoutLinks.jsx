@@ -8,7 +8,7 @@ export default function SignedoutLinks() {
                 <NavLink to="/">Sign Up</NavLink>
             </li>
             <li>
-                <NavLink to="/">Log In</NavLink>
+                <NavLink to="/">Login</NavLink>
             </li>
         </ul>
     )

@@ -6,6 +6,7 @@ import Dashboard from './dashboard/Dashboard';
 import DevotionalDetails from './devotionals/DevotionalDetails';
 import Login from './authentication/Login';
 import SignUp from './authentication/SignUp';
+import CreateDevotional from './devotionals/CreateDevotional';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/devotional/:id" component={DevotionalDetails} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={SignUp} />
+          <Route path="/create-devotional" component={CreateDevotional} />
         </Switch>
       </div>
     </BrowserRouter>

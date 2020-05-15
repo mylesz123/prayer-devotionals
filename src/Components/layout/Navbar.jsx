@@ -7,7 +7,7 @@ export default function Navbar() {
     return (
         <nav className="nav-wrapper grey darken-3">
             <div className="container">
-                <Link to="/" className="brand-logo left">Devotional Plan</Link>
+                <Link to="/" className="brand-logo left">Your Devotionals</Link>
                 <SignedinLinks />
                 <SignedoutLinks />
             </div>
