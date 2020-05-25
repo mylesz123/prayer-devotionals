@@ -1,6 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { createDevotional } from '../../data-store/actions/devotionalActions';
 
-export default function CreateDevotional() {
+function CreateDevotional ({ createDevotional }) {
     const [state, setState] = useState({
         title: "",
         content: "",
@@ -8,7 +10,7 @@ export default function CreateDevotional() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(state);
+        createDevotional(state);
     }
     const onChange = input => e => {
         let value = e.target.value;
@@ -27,7 +29,7 @@ export default function CreateDevotional() {
                 </div>
                 <div className="input-field">
                     <label htmlFor="content">Enter Text Here</label>
-                    <textarea name="content" id="content" cols="30" rows="10" className="materialize-textarea" onChange={onChange('email')}></textarea>
+                    <textarea name="content" id="content" cols="30" rows="10" className="materialize-textarea" onChange={onChange('content')}></textarea>
                 </div>
                 <div className="input-field">
                     <button className="btn pink lighten-1 z-depth-0">Create</button>
@@ -36,3 +38,14 @@ export default function CreateDevotional() {
         </div>
     )
 }
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        // map dispatch action so it can be intercepted by createDevotional action,
+        // then assign to callback which takes the devotional needed for the createDevotional action,
+        // and dispatches that
+        createDevotional: (devotional) => dispatch(createDevotional(devotional)),
+    }
+}
+
+export default connect(null , mapDispatchToProps)(CreateDevotional)
