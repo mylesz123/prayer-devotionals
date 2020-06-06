@@ -1,7 +1,30 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { createDevotional } from '../../data-store/actions/devotionalActions';
+import { createDevotionalAction } from '../../data-store/actions/devotionalActions';
 
+/**
+ * Sending the initial dispatch to be intercepted by middleware
+ * mapDispatchToProps basically is just returning an object with properties 
+ * to be read in the connected component props
+ *
+ * the createDevotional prop is a callback function that maps to the createDevotionalAction, 
+ * and when this action is called in the connected component, 
+ * we are able to pass information to our reducer
+ * 
+ * @param {function} dispatch 
+ * 
+ * @returns {prop / callback} createDevotional 
+ */
+const mapDispatchToProps = (dispatch) => {
+    return {
+        createDevotional: (devotional) => dispatch(createDevotionalAction(devotional)),
+    }
+}
+
+/**
+ * Component that creates a new devotional to be displayed in /create-devotional
+ * @param {prop} createDevotional - maps to createDevotionalAction
+ */
 function CreateDevotional ({ createDevotional }) {
     const [state, setState] = useState({
         title: "",
@@ -10,6 +33,7 @@ function CreateDevotional ({ createDevotional }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        // this maps to createDevotionalAction and passing in our state means we are passing in a devotional
         createDevotional(state);
     }
     const onChange = input => e => {
@@ -37,15 +61,6 @@ function CreateDevotional ({ createDevotional }) {
             </form>
         </div>
     )
-}
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        // map dispatch action so it can be intercepted by createDevotional action,
-        // then assign to callback which takes the devotional needed for the createDevotional action,
-        // and dispatches that
-        createDevotional: (devotional) => dispatch(createDevotional(devotional)),
-    }
 }
 
 export default connect(null , mapDispatchToProps)(CreateDevotional)

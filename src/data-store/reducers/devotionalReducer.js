@@ -5,6 +5,11 @@ const initState = {
         {id: 3, title: "Jesus is King", content: "I have been saved by faith!", time: "May 03, 2020", author: "Me"},
     ],
 };
+
+/**
+ * the whole point of a reducer is to do something with the the action that was sent.
+ *  
+ */
 const devotionalReducer = (state = initState, action) => {
     switch (action.type) {
         case 'CREATE_DEVOTIONAL':
