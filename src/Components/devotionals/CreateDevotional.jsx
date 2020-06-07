@@ -46,7 +46,7 @@ function CreateDevotional ({ createDevotional }) {
     }
 
     const clearState = state => {
-        state.map(key => {
+        Object.keys(state).forEach(key => {
             setState(prevState => {
                 return { ...prevState, [key]: "" };
             })
