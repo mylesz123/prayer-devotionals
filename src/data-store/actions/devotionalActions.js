@@ -10,9 +10,13 @@
  * then resumes dispatch to go to reducer
  * 
  * @param {state} devotional 
+ * 
+ * @return {function} dispatch (sender), getState (getter from thunk), 
+ * { getFirestore & getFirebase } destructured from the withExtraArgument method in index.js 
+ * to give access to firebase/firestore api
  */
 export const createDevotionalAction = (devotional) => {
-    return (dispatch, getState) => {
+    return (dispatch, getState, { getFirestore, getFirebase }) => {
         // make async call to db
 
         //returning a dispatch that sends information (action) to our reducer
