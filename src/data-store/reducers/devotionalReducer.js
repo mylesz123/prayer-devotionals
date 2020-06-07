@@ -21,7 +21,6 @@ const devotionalReducer = (state = initState, action) => {
             return state;
     
         default:
-            console.log('nothing to do here');
             return state;
     }
 }

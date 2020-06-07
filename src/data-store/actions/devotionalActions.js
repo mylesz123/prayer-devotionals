@@ -24,12 +24,11 @@ export const createDevotionalAction = (devotional) => {
             authorFirstName: "Alisa",
             authorLastName: "Young",
             authorId: 1,
-            createdAt: new Date()
+            time: new Date().toDateString()
         })
         .then(() => {
             //returning a dispatch that sends information (action) to our reducer
             dispatch({ type: 'CREATE_DEVOTIONAL', devotional });
-            console.log("createDevotionalAction", { state: getState })
         })
         .catch((error) => {
             dispatch({ type: 'CREATE_DEVOTIONAL_ERROR', error });
