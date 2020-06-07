@@ -24,10 +24,10 @@ import firebaseConfig from './config/firebase-config';
 const store = createStore(
   rootReducer, 
   compose(
-    applyMiddleware(thunk.withExtraArgument({ getFirestore, getFirebase }))
-  ),
-  reduxFirestore(firebaseConfig),
-  reactReduxFirebase(firebaseConfig)
+    applyMiddleware(thunk.withExtraArgument({ getFirestore, getFirebase })),
+    reduxFirestore(firebaseConfig),
+    reactReduxFirebase(firebaseConfig)
+  )
 );
 
 ReactDOM.render(

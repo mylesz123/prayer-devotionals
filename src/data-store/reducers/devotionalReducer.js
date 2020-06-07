@@ -14,13 +14,16 @@ const devotionalReducer = (state = initState, action) => {
     switch (action.type) {
         case 'CREATE_DEVOTIONAL':
             console.log('created a new devotional!', action.devotional);
-            break;
+            return state;
+
+        case 'CREATE_DEVOTIONAL_ERROR':
+            console.log('an error occurred when trying to make a new devotional', action.error);
+            return state;
     
         default:
             console.log('nothing to do here');
-            break;
+            return state;
     }
-    return state;
 }
 
 export default devotionalReducer;
