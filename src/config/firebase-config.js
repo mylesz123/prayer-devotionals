@@ -1,10 +1,11 @@
 import firebase from 'firebase/app';
+import { firebaseApiKey } from '../security/apiKeys';
 import 'firebase/firestore';
 import 'firebase/auth';
 
 // Your web app's Firebase configuration
 var firebaseConfig = {
-    apiKey: "AIzaSyDYmi_Q9qDO2QG6_IhXG_fiDVHxPLsxmo4",
+    apiKey: firebaseApiKey,
     authDomain: "prayer-devotionals.firebaseapp.com",
     databaseURL: "https://prayer-devotionals.firebaseio.com",
     projectId: "prayer-devotionals",
