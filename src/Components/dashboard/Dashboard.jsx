@@ -3,6 +3,9 @@ import Notifications from './Notifications';
 import DevotionalsList from'../devotionals/DevotionalsList';
 import { connect } from 'react-redux'; // connecting this component to our reducer
 
+import { firestoreConnect } from 'react-redux-firebase'; // again connecting this component to our reducer
+import { compose } from 'redux';
+
 function Dashboard({ devotionals }) {
     return (
         <div className=" dashboard container">
@@ -20,8 +23,13 @@ function Dashboard({ devotionals }) {
 
 const mapStateToProps = (state) => {
     return {
-        devotionals: state.devotionals.devotionals,
+        devotionals: state.firestore.ordered.devotionals,
     }
 }
 
-export default connect(mapStateToProps)(Dashboard)
+export default compose(
+    connect(mapStateToProps),
+    firestoreConnect([
+        { collection: "devotionals" }
+    ]),
+)(Dashboard)

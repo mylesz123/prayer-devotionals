@@ -2,6 +2,9 @@ import devotionalReducer from './devotionalReducer';
 import authenticationReducer from './authenticationReducer';
 import { combineReducers } from 'redux';
 
+//firestore
+import { firestoreReducer } from 'redux-firestore'; // sync fs data with our state from connected component
+
 /**
  * reducer is responsible for going into the data store and getting
  * the information that we need.
@@ -9,6 +12,7 @@ import { combineReducers } from 'redux';
 const rootReducer = combineReducers({
     devotionals: devotionalReducer,
     authentication: authenticationReducer,
+    firestore: firestoreReducer
 });
 
 export default rootReducer;
