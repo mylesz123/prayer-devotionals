@@ -6,6 +6,12 @@ import { connect } from 'react-redux'; // connecting this component to our reduc
 import { firestoreConnect } from 'react-redux-firebase'; // again connecting this component to our reducer
 import { compose } from 'redux';
 
+const mapStateToProps = (state) => {
+    return {
+        devotionals: state.firestore.ordered.devotionals,
+    }
+}
+
 function Dashboard({ devotionals }) {
     return (
         <div className=" dashboard container">
@@ -19,12 +25,6 @@ function Dashboard({ devotionals }) {
             </div>
         </div>
     )
-}
-
-const mapStateToProps = (state) => {
-    return {
-        devotionals: state.firestore.ordered.devotionals,
-    }
 }
 
 export default compose(
