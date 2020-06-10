@@ -6,7 +6,7 @@ export default function DevotionalsList({ devotionals }) {
     return (
         <div className=" devotional-list section">
             {devotionals && devotionals.map(devotional => (
-                <Link key={devotional.id} to={`/devotional/:${devotional.id}`} >
+                <Link key={devotional.id} to={`/devotional/${devotional.id}`} >
                     <DevotionalSummary  
                         {...devotional}
                     />

@@ -5,9 +5,8 @@ import { firestoreConnect } from 'react-redux-firebase';
 
 const mapStateToProps = (state, componentProps) => {
     const id = componentProps.match.params.id;
-    const slicedId = id.slice(1);
     const devotionals = state.firestore.data.devotionals;
-    const devotional = devotionals && devotionals[slicedId];
+    const devotional = devotionals && devotionals[id];
 
     return {
         devotional,
