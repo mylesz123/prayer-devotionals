@@ -2,8 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import SignedinLinks from './SignedinLinks';
 import SignedoutLinks from './SignedoutLinks';
+import { connect } from 'react-redux';
 
-export default function Navbar() {
+const mapStateToProps = (state) => {
+    // see if you are logged in or not
+    console.log(state)
+}
+
+function Navbar() {
     return (
         <nav className="nav-wrapper grey darken-3">
             <div className="container">
@@ -14,3 +20,5 @@ export default function Navbar() {
         </nav>
     )
 }
+
+export default connect(mapStateToProps)(Navbar);
