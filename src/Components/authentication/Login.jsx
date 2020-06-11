@@ -1,6 +1,20 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { loginAction } from '../../data-store/actions/authenticationActions';
 
-export default function Login() {
+const mapStateToProps = (state) => {
+    return {
+        authError: state.authentication.authError,
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        login: (state) => dispatch(loginAction(state)) 
+    }
+}
+
+function Login({ login, authError }) {
     const [state, setState] = useState({
         email: "",
         password: "",
@@ -8,8 +22,9 @@ export default function Login() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(state);
+        login(state);
     }
+
     const onChange = input => e => {
         let value = e.target.value;
         setState(prevState => {
@@ -32,7 +47,10 @@ export default function Login() {
                 <div className="input-field">
                     <button className="btn pink lighten-1 z-depth-0">Login</button>
                 </div>
+                <div className="red-text center">{authError ? authError : null}</div>
             </form>
         </div>
     )
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
