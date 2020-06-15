@@ -16,6 +16,14 @@ const authenticationReducer = (state = initState, action) => {
                 ...state, 
                 authError: "Login Failed, could not find username or password"
             };
+
+        case "SIGNOUT_SUCCESS":
+            console.log("Sign out Successful");
+            return state;
+
+        case "SIGNOUT_ERROR":
+            console.log("Sign out Failed");
+            return state;
     
         default:
             return state;
