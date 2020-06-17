@@ -6,7 +6,7 @@ const authenticationReducer = (state = initState, action) => {
         case "LOGIN_SUCCESS":
             console.log("Login Successful");
             return {
-                state,
+                ...state,
                 authError: null
             };
 
