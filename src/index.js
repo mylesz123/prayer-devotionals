@@ -42,12 +42,14 @@ const rrfProps = {
   createFirestoreInstance
 };
 
-ReactDOM.render(
-  <Provider store={store}>
-    <ReactReduxFirebaseProvider {...rrfProps}>
+firebase.auth().onAuthStateChanged(() => {
+  ReactDOM.render(
+    <Provider store={store}>
+      <ReactReduxFirebaseProvider {...rrfProps}>
         <App />
-    </ReactReduxFirebaseProvider>
-  </Provider>
-  ,
-  document.getElementById('root')
-);
+      </ReactReduxFirebaseProvider>
+    </Provider>
+    ,
+    document.getElementById('root')
+  );  
+});
