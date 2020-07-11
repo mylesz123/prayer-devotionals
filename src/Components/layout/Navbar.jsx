@@ -7,16 +7,17 @@ import { connect } from 'react-redux';
 const mapStateToProps = (state) => {
     return {
         isLoggedIn: state.firebase.auth.uid,
+        profile: state.firebase.profile,
     }
 }
 
-function Navbar({ isLoggedIn }) {
+function Navbar({ isLoggedIn, profile }) {
     return (
         <nav className="nav-wrapper grey darken-3">
             <div className="container">
                 <Link to="/" className="brand-logo left">Your Devotionals</Link>
                 {isLoggedIn
-                    ? <SignedinLinks />
+                    ? <SignedinLinks profile={profile} />
                     : <SignedoutLinks />
                 }
             </div>
