@@ -6,25 +6,32 @@ import { connect } from 'react-redux'; // connecting this component to our reduc
 import { firestoreConnect } from 'react-redux-firebase'; // again connecting this component to our reducer
 import { compose } from 'redux';
 
+import { Redirect } from 'react-router-dom';
+
 const mapStateToProps = (state) => {
     return {
         devotionals: state.firestore.ordered.devotionals,
+        isLoggedIn: state.firebase.auth.uid,
     }
 }
 
-function Dashboard({ devotionals }) {
-    return (
-        <div className=" dashboard container">
-            <div className="row">
-                <div className="col s12 m6">
-                    <DevotionalsList devotionals={devotionals}/>
-                </div>
-                <div className="col s12 m5 offset-m1">
-                    <Notifications />
+function Dashboard({ devotionals, isLoggedIn }) {
+    if (isLoggedIn) {
+        return (
+            <div className=" dashboard container">
+                <div className="row">
+                    <div className="col s12 m6">
+                        <DevotionalsList devotionals={devotionals} />
+                    </div>
+                    <div className="col s12 m5 offset-m1">
+                        <Notifications />
+                    </div>
                 </div>
             </div>
-        </div>
-    )
+        )
+    } else {
+        return (<Redirect to={'/login'} />)
+    }
 }
 
 export default compose(

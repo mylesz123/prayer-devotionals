@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { createDevotionalAction } from '../../data-store/actions/devotionalActions';
 
+import { Redirect } from 'react-router-dom';
+
 /**
  * Sending the initial dispatch to be intercepted by middleware
  * mapDispatchToProps basically is just returning an object with properties 
@@ -20,12 +22,17 @@ const mapDispatchToProps = (dispatch) => {
         createDevotional: (devotional) => dispatch(createDevotionalAction(devotional)),
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        isLoggedIn: state.firebase.auth.uid,
+    }
+}
 
 /**
  * Component that creates a new devotional to be displayed in /create-devotional
  * @param {prop} createDevotional - maps to createDevotionalAction
  */
-function CreateDevotional ({ createDevotional }) {
+function CreateDevotional ({ createDevotional, isLoggedIn }) {
     const [state, setState] = useState({
         title: "",
         content: "",
@@ -53,32 +60,36 @@ function CreateDevotional ({ createDevotional }) {
         });
     }
 
-    return (
-        <div className="container">
-            <form onSubmit={handleSubmit} className="white">
-                <h5 className="grey-text text-darken-3">Create New Devotional</h5>
-                <div className="input-field">
-                    <label htmlFor="title">Title</label>
-                    <input type="text" id="title" onChange={onChange('title')} value={state.title} />
-                </div>
-                <div className="input-field">
-                    <label htmlFor="content">Enter Text Here</label>
-                    <textarea 
-                        name="content" 
-                        id="content" 
-                        cols="30" 
-                        rows="10" 
-                        className="materialize-textarea" 
-                        onChange={onChange('content')} 
-                        value={state.content} 
-                    ></textarea>
-                </div>
-                <div className="input-field">
-                    <button className="btn pink lighten-1 z-depth-0">Create</button>
-                </div>
-            </form>
-        </div>
-    )
+    if (isLoggedIn) {
+        return (
+            <div className="container">
+                <form onSubmit={handleSubmit} className="white">
+                    <h5 className="grey-text text-darken-3">Create New Devotional</h5>
+                    <div className="input-field">
+                        <label htmlFor="title">Title</label>
+                        <input type="text" id="title" onChange={onChange('title')} value={state.title} />
+                    </div>
+                    <div className="input-field">
+                        <label htmlFor="content">Enter Text Here</label>
+                        <textarea
+                            name="content"
+                            id="content"
+                            cols="30"
+                            rows="10"
+                            className="materialize-textarea"
+                            onChange={onChange('content')}
+                            value={state.content}
+                        ></textarea>
+                    </div>
+                    <div className="input-field">
+                        <button className="btn pink lighten-1 z-depth-0">Create</button>
+                    </div>
+                </form>
+            </div>
+        )
+    } else {
+        return (<Redirect to={'/login'} />)
+    }
 }
 
-export default connect(null , mapDispatchToProps)(CreateDevotional)
+export default connect(mapStateToProps , mapDispatchToProps)(CreateDevotional)

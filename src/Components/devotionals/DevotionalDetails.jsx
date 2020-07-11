@@ -3,6 +3,8 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
 
+import { Redirect } from 'react-router-dom';
+
 const mapStateToProps = (state, componentProps) => {
     const id = componentProps.match.params.id;
     const devotionals = state.firestore.data.devotionals;
@@ -10,14 +12,16 @@ const mapStateToProps = (state, componentProps) => {
 
     return {
         devotional,
+        isLoggedIn: state.firebase.auth.uid,
     }
 }
 
-function DevotionalDetails({ devotional }) {
-    return (
-        <>
-            {devotional 
-                ? <div className=" container section devotional-details">
+function DevotionalDetails({ devotional, isLoggedIn }) {
+    if (isLoggedIn) {
+        return (
+            <>
+                {devotional
+                    ? <div className=" container section devotional-details">
                         <div className="card z-depth-0">
                             <div className="card-content">
                                 <span className="card-title">Title: {devotional.title}</span>
@@ -25,16 +29,19 @@ function DevotionalDetails({ devotional }) {
                             </div>
 
                             <div className="card-action grey lighten-4 grey-text">
-                            <div>Posted By: {devotional.authorFirstName}</div>
+                                <div>Posted By: {devotional.authorFirstName}</div>
                                 <div>{devotional.time}</div>
                             </div>
 
                         </div>
                     </div>
-                : <div className="container center">Loading ... </div>
-            }
-        </>
-    )
+                    : <div className="container center">Loading ... </div>
+                }
+            </>
+        )
+    } else {
+        return (<Redirect to={'/login'}/>)
+    }
 }
 
 export default compose(

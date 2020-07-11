@@ -1,6 +1,15 @@
 import React, { useState } from 'react'
+import { connect } from 'react-redux';
 
-export default function SignUp() {
+import { Redirect } from 'react-router-dom';
+
+const mapStateToProps = (state) => {
+    return {
+        isLoggedIn: state.firebase.auth.uid,
+    }
+}
+
+function SignUp({ isLoggedIn }) {
     const [state, setState] = useState({
         firstName: "",
         lastName: "",
@@ -17,6 +26,10 @@ export default function SignUp() {
         setState(prevState => {
             return { ...prevState, [input]: value };
         });
+    }
+
+    if (isLoggedIn) {
+        return (<Redirect to={'/'} />)
     }
 
     return (
@@ -46,3 +59,5 @@ export default function SignUp() {
         </div>
     )
 }
+
+export default connect(mapStateToProps)(SignUp);
