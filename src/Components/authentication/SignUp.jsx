@@ -3,13 +3,22 @@ import { connect } from 'react-redux';
 
 import { Redirect } from 'react-router-dom';
 
+import { signUpAction } from './../../data-store/actions/authenticationActions';
+
 const mapStateToProps = (state) => {
     return {
         isLoggedIn: state.firebase.auth.uid,
+        signUpError: state.authentication.authError,
     }
 }
 
-function SignUp({ isLoggedIn }) {
+const mapDispatchToProps = (dispatch) => {
+    return {
+        signUp: (state) => dispatch(signUpAction(state)),
+    }
+}
+
+function SignUp({ isLoggedIn, signUpError, signUp }) {
     const [state, setState] = useState({
         firstName: "",
         lastName: "",
@@ -19,7 +28,8 @@ function SignUp({ isLoggedIn }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(state);
+        // console.log(state);
+        signUp(state);
     }
     const onChange = input => e => {
         let value = e.target.value;
@@ -55,9 +65,15 @@ function SignUp({ isLoggedIn }) {
                 <div className="input-field">
                     <button className="btn pink lighten-1 z-depth-0">Sign Up</button>
                 </div>
+
+                {signUpError &&
+                    <div className="red-text center">
+                        <p>{signUpError}</p>
+                    </div>
+                }
             </form>
         </div>
     )
 }
 
-export default connect(mapStateToProps)(SignUp);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
