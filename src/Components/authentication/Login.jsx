@@ -2,9 +2,12 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { loginAction } from '../../data-store/actions/authenticationActions';
 
+import { Link, Redirect } from 'react-router-dom';
+
 const mapStateToProps = (state) => {
     return {
         authError: state.authentication.authError,
+        isLoggedIn: state.firebase.auth.uid,
     }
 }
 
@@ -14,7 +17,7 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-function Login({ login, authError }) {
+function Login({ login, authError, isLoggedIn }) {
     const [state, setState] = useState({
         email: "",
         password: "",
@@ -32,6 +35,9 @@ function Login({ login, authError }) {
         });
     }
     
+    if (isLoggedIn) {
+        return (<Redirect to={'/'} />)
+    }
     return (
         <div className="container">
             <form onSubmit={handleSubmit} className="white">
@@ -46,6 +52,7 @@ function Login({ login, authError }) {
                 </div>
                 <div className="input-field">
                     <button className="btn pink lighten-1 z-depth-0">Login</button>
+                    <Link className="right" to={'/signup'}>Don't have an account?</Link>
                 </div>
                 <div className="red-text center">{authError ? authError : null}</div>
             </form>
