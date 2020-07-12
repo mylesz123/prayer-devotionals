@@ -18,12 +18,15 @@
 export const createDevotionalAction = (devotional) => {
     return (dispatch, getState, { getFirestore, getFirebase }) => {
         // make async call to db
+        const profileInfo = getState().firebase.profile;
+        const uid = getState().firebase.auth.uid;
+
         const firestore = getFirestore();
         firestore.collection('devotionals').add({
             ...devotional,
-            authorFirstName: "Alisa",
-            authorLastName: "Young",
-            authorId: 1,
+            authorFirstName: profileInfo.firstName,
+            authorLastName: profileInfo.lastName,
+            authorId: uid,
             time: new Date().toDateString()
         })
         .then(() => {
