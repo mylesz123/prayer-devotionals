@@ -17,7 +17,7 @@ function SignedinLinks({ signOut, profile }) {
                 <NavLink to="/create-devotional">New Devotional</NavLink>
             </li>
             <li>
-                <a onClick={signOut} href="/">Log Out</a>
+                <a onClick={signOut} href="/">Sign Out</a>
             </li>
             <li>
                 {/* should have this link to an account details page */}

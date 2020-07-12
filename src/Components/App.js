@@ -8,6 +8,7 @@ import Login from './authentication/Login';
 import SignUp from './authentication/SignUp';
 import CreateDevotional from './devotionals/CreateDevotional';
 
+// make this a crud app
 function App() {
   return (
     <BrowserRouter>
