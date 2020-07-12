@@ -32,7 +32,7 @@ const mapStateToProps = (state) => {
  * Component that creates a new devotional to be displayed in /create-devotional
  * @param {prop} createDevotional - maps to createDevotionalAction
  */
-function CreateDevotional ({ createDevotional, isLoggedIn }) {
+function CreateDevotional ({ createDevotional, isLoggedIn, history }) {
     const [state, setState] = useState({
         title: "",
         content: "",
@@ -43,6 +43,8 @@ function CreateDevotional ({ createDevotional, isLoggedIn }) {
         // this maps to createDevotionalAction and passing in our state means we are passing in a devotional
         createDevotional(state);
         clearState(state);
+        // history comes from the Route component
+        history.push('/');
     }
 
     const onChange = input => e => {
