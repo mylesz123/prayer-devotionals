@@ -1,4 +1,5 @@
 import devotionalReducer from './devotionalReducer';
+import userReducer from './userReducer';
 import authenticationReducer from './authenticationReducer';
 import { combineReducers } from 'redux';
 
@@ -12,6 +13,7 @@ import { firebaseReducer } from 'react-redux-firebase'; // connect auth data
  */
 const rootReducer = combineReducers({
     devotionals: devotionalReducer,
+    user: userReducer,
     authentication: authenticationReducer,
     firestore: firestoreReducer,
     firebase: firebaseReducer

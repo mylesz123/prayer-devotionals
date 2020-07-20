@@ -15,14 +15,6 @@ const firebaseConfig = {
     measurementId: "G-WJZHZZ4LSL"
 };
 
-export const extraConfigProps = {
-    useFirestoreForProfile: true,
-    userProfile: 'users',
-    // enableRedirectHandling: false,
-    // resetBeforeLogin: false
-}
-
-
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
