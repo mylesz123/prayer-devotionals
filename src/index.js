@@ -19,7 +19,7 @@ import {
   getFirestore, // store enhancer that gives getFirestore info on which database to connect to
   createFirestoreInstance
 } from "redux-firestore";
-import firebaseConfig, { extraConfigProps } from './config/firebase-config';
+import firebaseConfig from './config/firebase-config';
 import firebase from 'firebase/app';
 // end firebase
 
@@ -38,8 +38,6 @@ const store = createStore(
 const rrfProps = {
   firebase,
   config: firebaseConfig,
-  // for additional props to be added to state
-  config: extraConfigProps,
   dispatch: store.dispatch,
   createFirestoreInstance
 };
