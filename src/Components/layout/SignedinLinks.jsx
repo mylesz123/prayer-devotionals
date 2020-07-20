@@ -9,8 +9,8 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-function SignedinLinks({ signOut, profile }) {
-    const { initials } = profile;
+function SignedinLinks({ signOut, user }) {
+    const { initials = '' } = user;
     return (
         <ul className="right">
             <li>
@@ -20,8 +20,7 @@ function SignedinLinks({ signOut, profile }) {
                 <a onClick={signOut} href="/">Sign Out</a>
             </li>
             <li>
-                {/* should have this link to an account details page */}
-                <NavLink to="/" className="btn btn-floating pink lighten-1"> {initials ? initials : "🥶" } </NavLink>
+                <NavLink to="/" className="btn btn-floating pink lighten-1">{ initials ? initials : "🥶" }</NavLink>
             </li>
         </ul>
     )

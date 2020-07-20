@@ -25,7 +25,7 @@ const authenticationReducer = (state = initState, action) => {
             };
 
         case "SIGNUP_ERROR":
-            console.log("Signup Failed");
+            console.log("Signup Failed" + action.error.message);
             return { 
                 ...state, 
                 authError: "Signup Failed, could not create a user: " + action.error.message
