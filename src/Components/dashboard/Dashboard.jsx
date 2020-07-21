@@ -11,11 +11,12 @@ import { Redirect } from 'react-router-dom';
 const mapStateToProps = (state) => {
     return {
         devotionals: state.firestore.ordered.devotionals,
+        notifications: state.firestore.ordered.notifications,
         isLoggedIn: state.firebase.auth.uid,
     }
 }
 
-function Dashboard({ devotionals, isLoggedIn }) {
+function Dashboard({ devotionals, notifications, isLoggedIn }) {
     if (isLoggedIn) {
         return (
             <div className=" dashboard container">
@@ -24,7 +25,7 @@ function Dashboard({ devotionals, isLoggedIn }) {
                         <DevotionalsList devotionals={devotionals} />
                     </div>
                     <div className="col s12 m5 offset-m1">
-                        <Notifications />
+                        <Notifications notifications={notifications}/>
                     </div>
                 </div>
             </div>
@@ -37,6 +38,7 @@ function Dashboard({ devotionals, isLoggedIn }) {
 export default compose(
     connect(mapStateToProps),
     firestoreConnect([
-        { collection: "devotionals" }
+        { collection: "devotionals", limit: 5, orderBy: ["time", "desc"] },
+        { collection: "notifications", limit: 4, orderBy: ["time", "desc"] }
     ]),
 )(Dashboard)
