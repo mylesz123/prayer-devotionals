@@ -40,3 +40,29 @@ export const createDevotionalAction = (devotional) => {
        
     }
 };
+
+export const editDevotionalAction = (devotional) => {
+    return (dispatch, getState, { getFirestore, getFirebase }) => {
+        // make async call to db
+        const userInfo = getState().user.userInfo;
+        const uid = getState().firebase.auth.uid;
+
+        const firestore = getFirestore();
+        firestore.collection('devotionals')
+        .doc(devotional.id)
+        .set({
+            ...devotional,
+            authorFirstName: userInfo.firstName,
+            authorLastName: userInfo.lastName,
+            authorId: uid,
+            time: new Date().toDateString()
+        })
+        .then(() => {
+            //returning a dispatch that sends information (action) to our reducer
+            dispatch({ type: 'EDIT_DEVOTIONAL', devotional });
+        })
+        .catch((error) => {
+            dispatch({ type: 'EDIT_DEVOTIONAL_ERROR', error });
+        })
+    }
+};

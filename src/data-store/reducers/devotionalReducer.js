@@ -19,6 +19,14 @@ const devotionalReducer = (state = initState, action) => {
         case 'CREATE_DEVOTIONAL_ERROR':
             console.log('an error occurred when trying to make a new devotional', action.error);
             return state;
+
+        case 'EDIT_DEVOTIONAL':
+            console.log('successfully edited new devotional!', action.devotional);
+            return state;
+
+        case 'EDIT_DEVOTIONAL_ERROR':
+            console.log('an error occurred when trying to edit a devotional', action.error);
+            return state;
     
         default:
             return state;
