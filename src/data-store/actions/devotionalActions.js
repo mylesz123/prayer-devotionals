@@ -64,3 +64,20 @@ export const editDevotionalAction = (devotional) => {
         })
     }
 };
+
+export const deleteDevotionalAction = (devotional) => {
+    return (dispatch, getState, { getFirestore, getFirebase }) => {
+        // make async call to db
+        const firestore = getFirestore();
+        firestore.collection('devotionals')
+        .doc(devotional.id)
+        .delete()
+        .then(() => {
+            //returning a dispatch that sends information (action) to our reducer
+            dispatch({ type: 'DELETE_DEVOTIONAL', devotional });
+        })
+        .catch((error) => {
+            dispatch({ type: 'DELETE_DEVOTIONAL_ERROR', error });
+        })
+    }
+};

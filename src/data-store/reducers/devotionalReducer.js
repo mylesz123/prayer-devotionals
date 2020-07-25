@@ -36,6 +36,20 @@ const devotionalReducer = (state = initState, action) => {
                 ...state,
                 errorMessage: 'An error occurred, no changes were made to your devotional'
             }
+
+        case 'DELETE_DEVOTIONAL':
+            console.log('successfully deleted devotional!');
+            return {
+                ...state,
+                errorMessage: null
+            }
+
+        case 'DELETE_DEVOTIONAL_ERROR':
+            console.log('an error occurred when trying to delete a devotional', action.error);
+            return {
+                ...state,
+                errorMessage: 'An error occurred, could not delete your devotional'
+            }
     
         default:
             return state;
