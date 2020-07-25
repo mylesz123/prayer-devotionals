@@ -33,8 +33,8 @@ function EditDevotional({
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        editDevotional(state)
-        setIsEditing(false)
+        editDevotional(state);
+        setIsEditing(false);
     }
 
     const onChange = input => e => {

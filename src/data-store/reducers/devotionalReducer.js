@@ -1,9 +1,6 @@
 const initState = {
-    devotionals: [
-        {id: 1, title: "honey", content: "sickle popsicle nickel", time: "May 03, 2020", author: "Me"},
-        {id: 2, title: "boo", content: "wazoo", time: "May 03, 2020", author: "Lisa"},
-        {id: 3, title: "Jesus is King", content: "I have been saved by faith!", time: "May 03, 2020", author: "Me"},
-    ],
+    devotionals: [],
+    errorMessage: null
 };
 
 /**
@@ -13,20 +10,32 @@ const initState = {
 const devotionalReducer = (state = initState, action) => {
     switch (action.type) {
         case 'CREATE_DEVOTIONAL':
-            console.log('created a new devotional!', action.devotional);
-            return state;
+            console.log('created a new devotional!');
+            return {
+                ...state,
+                errorMessage: null
+            }
 
         case 'CREATE_DEVOTIONAL_ERROR':
             console.log('an error occurred when trying to make a new devotional', action.error);
-            return state;
+            return {
+                ...state,
+                errorMessage: 'an error occurred when trying to make a new devotional'
+            }
 
         case 'EDIT_DEVOTIONAL':
-            console.log('successfully edited new devotional!', action.devotional);
-            return state;
+            console.log('successfully edited new devotional!');
+            return {
+                ...state,
+                errorMessage: null
+            }
 
         case 'EDIT_DEVOTIONAL_ERROR':
             console.log('an error occurred when trying to edit a devotional', action.error);
-            return state;
+            return {
+                ...state,
+                errorMessage: 'An error occurred, no changes were made to your devotional'
+            }
     
         default:
             return state;

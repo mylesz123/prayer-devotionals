@@ -36,8 +36,6 @@ export const createDevotionalAction = (devotional) => {
         .catch((error) => {
             dispatch({ type: 'CREATE_DEVOTIONAL_ERROR', error });
         })
-
-       
     }
 };
 
