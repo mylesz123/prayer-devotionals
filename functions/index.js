@@ -27,6 +27,19 @@ exports.devotionalCreatedNotification = functions.firestore
         return createNotification(notification);
     });
 
+exports.editedDevotionalNotification = functions.firestore
+    .document('devotionals/{devotionalID}')
+    .onUpdate(document => {
+        const devotional = document.data();
+        const notification = {
+            user: `${devotional.authorFirstName} ${devotional.authorLastName}`,
+            content: 'edited a devotional',
+            time: admin.firestore.FieldValue.serverTimestamp(),
+        }
+
+        return createNotification(notification);
+    });
+
 exports.userJoinedNotification = functions.firestore
     .document('users/{userID}')
     .onCreate(document => {
