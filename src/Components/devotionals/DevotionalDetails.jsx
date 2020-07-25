@@ -15,13 +15,14 @@ const mapStateToProps = (state, componentProps) => {
     return {
         devotionalID: id,
         devotional,
-        isLoggedIn: state.firebase.auth.uid,
+        uid: state.firebase.auth.uid,
     }
 }
 
 function Button({ 
     text, 
-    handleClick = null
+    handleClick = null,
+    shouldDisplay = true
 }) {
     const onClick = (e) =>  {
         e.preventDefault();
@@ -30,28 +31,31 @@ function Button({
     const styles = {
         edit: "waves-effect waves-light btn purple accent-3 right",
     }
+
     return (
-        <button 
-            className={styles.edit}
-            onClick={handleClick || onClick}
-        > 
-            {text}
-        </button>
+        <> 
+            {shouldDisplay && 
+                <button
+                    className={styles.edit}
+                    onClick={handleClick || onClick}
+                > {text} 
+                </button>
+            }
+        </>
     )
 }
 
-function DevotionalDetails({ devotionalID, devotional, isLoggedIn }) {
+function DevotionalDetails({ devotionalID, devotional, uid }) {
     const [isEditing, setIsEditing] = useState(false);
 
     const handleEdit = (bool) => {
         setIsEditing(bool);
     }
 
-    if (!isLoggedIn) {
+    if (!uid) {
         return (<Redirect to={'/login'} />)
     }
 
-    //should also check if the id of the current user matches the authorId in the devotional
     if (isEditing) {
         return (
             <EditDevotional
@@ -78,7 +82,11 @@ function DevotionalDetails({ devotionalID, devotional, isLoggedIn }) {
                         </div>
                     </div>
 
-                    <Button text="Edit" handleClick={() => handleEdit(true)}/>
+                    <Button
+                        text="Edit" 
+                        handleClick={() => handleEdit(true)}
+                        shouldDisplay={uid === devotional.authorId}
+                    />
                 </div>
                 : <div className="container center">Loading ... </div>
             }
