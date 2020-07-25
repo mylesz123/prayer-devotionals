@@ -16,6 +16,7 @@ const mapStateToProps = (state, componentProps) => {
         devotionalID: id,
         devotional,
         uid: state.firebase.auth.uid,
+        editError: state.devotionals.errorMessage,
     }
 }
 
@@ -45,7 +46,7 @@ function Button({
     )
 }
 
-function DevotionalDetails({ devotionalID, devotional, uid }) {
+function DevotionalDetails({ devotionalID, devotional, uid, editError }) {
     const [isEditing, setIsEditing] = useState(false);
 
     const handleEdit = (bool) => {
@@ -80,6 +81,10 @@ function DevotionalDetails({ devotionalID, devotional, uid }) {
                             <div>Posted By: {devotional.authorFirstName}</div>
                             <div>{devotional.time}</div>
                         </div>
+
+                        {editError &&
+                            <div className="red-text center">{editError}</div>
+                        }
                     </div>
 
                     <Button
