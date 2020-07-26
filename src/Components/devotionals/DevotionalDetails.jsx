@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import EditDevotional from './EditDevotional';
+import Button from '../elements/Button';
 
 import { compose } from 'redux';
 import { connect } from 'react-redux';
@@ -20,33 +21,7 @@ const mapStateToProps = (state, componentProps) => {
     }
 }
 
-function Button({ 
-    text, 
-    handleClick = null,
-    shouldDisplay = true
-}) {
-    const onClick = (e) =>  {
-        e.preventDefault();
-    }
-
-    const styles = {
-        edit: "waves-effect waves-light btn purple accent-3 right",
-    }
-
-    return (
-        <> 
-            {shouldDisplay && 
-                <button
-                    className={styles.edit}
-                    onClick={handleClick || onClick}
-                > {text} 
-                </button>
-            }
-        </>
-    )
-}
-
-function DevotionalDetails({ devotionalID, devotional, uid, editError }) {
+function DevotionalDetails({ devotionalID, devotional, uid, editError, history }) {
     const [isEditing, setIsEditing] = useState(false);
 
     const handleEdit = (bool) => {
@@ -62,7 +37,8 @@ function DevotionalDetails({ devotionalID, devotional, uid, editError }) {
             <EditDevotional
                 id={devotionalID}
                 devotional={devotional} 
-                setIsEditing={setIsEditing} 
+                setIsEditing={setIsEditing}
+                history={history}
             />
         )
     }
@@ -91,6 +67,7 @@ function DevotionalDetails({ devotionalID, devotional, uid, editError }) {
                         text="Edit" 
                         handleClick={() => handleEdit(true)}
                         shouldDisplay={uid === devotional.authorId}
+                        buttonClass="editRight"
                     />
                 </div>
                 : <div className="container center">Loading ... </div>
