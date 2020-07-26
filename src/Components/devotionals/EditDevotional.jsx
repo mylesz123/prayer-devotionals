@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { editDevotionalAction } from '../../data-store/actions/devotionalActions';
+import { editDevotionalAction, deleteDevotionalAction } from '../../data-store/actions/devotionalActions';
+
+import Button from '../elements/Button';
+import DeleteDevotional from './DeleteDevotional';
 
 const mapDispatchToProps = (dispatch) => {
     return {
         editDevotional: (devotional) => dispatch(editDevotionalAction(devotional)),
+        deleteDevotional: (devotional) => dispatch(deleteDevotionalAction(devotional)),
     }
 }
 
@@ -17,7 +21,9 @@ function EditDevotional({
     id, 
     devotional, 
     setIsEditing, 
-    editDevotional 
+    editDevotional,
+    deleteDevotional,
+    history
 }) {
     //TODO: Add auth error if there is something fails when you try to save, like authentication
     const {
@@ -31,10 +37,26 @@ function EditDevotional({
         id
     });
 
-    const handleSubmit = (e) => {
+    const [shouldDelete, setShouldDelete] = useState(false);
+
+    const handleClick = (e, bool) => {
         e.preventDefault();
-        editDevotional(state);
+        setShouldDelete(bool);
+    }
+
+    const handleDelete = (e) => {
+        e.preventDefault();
+        deleteDevotional(state);
         setIsEditing(false);
+        history.push('/');
+    }
+
+    const handleSubmit = (e) => {
+        if(!shouldDelete) {
+            e.preventDefault();
+            editDevotional(state);
+            setIsEditing(false);
+        }
     }
 
     const onChange = input => e => {
@@ -67,9 +89,13 @@ function EditDevotional({
                         value={state.content}
                     ></textarea>
                 </div>
-                <div className="input-field">
-                    <button className="btn pink lighten-1 z-depth-0">Save</button>
-                </div>
+                {shouldDelete
+                    ? <DeleteDevotional handleClose={handleClick} handleDelete={handleDelete} />
+                    : <div className="input-field">
+                        <Button text="save" buttonClass="save"/>
+                        <Button text="delete" buttonClass="delete" handleClick={(e) => handleClick(e, true)}/>
+                    </div>
+                }
             </form>
         </div>
     )
